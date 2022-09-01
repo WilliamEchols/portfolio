@@ -45,6 +45,9 @@ nav.navbar .navbar-nav .nav-link.navbar-link, .navbar-brand {
   font-size: 18px;
   opacity: 0.75;
 }
+.navbar-brand {
+  margin-right: 0 !important;
+}
 
 
 .banner {
@@ -61,4 +64,10 @@ nav.navbar .navbar-nav .nav-link.navbar-link, .navbar-brand {
 .banner h1 {
   font-size: 60px;
   font-weight: 700;
+}
+
+img {
+  border: #fefefe;
+  border-style: solid;
+  border-radius: 5px;
 }

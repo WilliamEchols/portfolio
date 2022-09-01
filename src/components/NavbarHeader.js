@@ -13,7 +13,7 @@ export const NavbarHeader = () => {
         if (window.scrollY > 50) { 
             setScrolled(true);
 
-            let scrollPercent = window.scrollY/window.innerHeight * 100;
+            let scrollPercent = window.scrollY/(document.documentElement.scrollHeight - document.documentElement.clientHeight) * 100;
             scrollPercent = scrollPercent >= 100 ? 100 : scrollPercent;
 
             console.log()
@@ -36,13 +36,14 @@ export const NavbarHeader = () => {
     <Navbar expand="md" className={scrolled ? "scrolled" : ""}>
         <div style={styles}></div>
         <Container>
-            <Navbar.Brand  href="#">William Echols</Navbar.Brand>
-            <Navbar.Brand  href="https://github.com/WilliamEchols"><Github size={25} /></Navbar.Brand>
-            <Navbar.Toggle data-toggle="collapse" ><GridFill size={25} /></Navbar.Toggle>
+            <Navbar.Brand href="#">William Echols</Navbar.Brand>
+            <Navbar.Brand href="https://github.com/WilliamEchols"><Github size={30} /></Navbar.Brand>
+            <Navbar.Toggle style={{ "display" : scrolled ? "" : "none" }} data-toggle="collapse" ><GridFill size={35} fill={"#fefefe"} /></Navbar.Toggle>
             <Navbar.Collapse>
                 <Nav className="ms-auto">
                     <Nav.Link href="#t-minus" className="navbar-link">T-Minus</Nav.Link>
                     <Nav.Link href="#ln2" className="navbar-link">ln(2)</Nav.Link>
+                    <Nav.Link href="#contact" className="navbar-link">Reach Out</Nav.Link>
                 </Nav>
             </Navbar.Collapse>
         </Container>
