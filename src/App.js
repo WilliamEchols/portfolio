@@ -76,7 +76,7 @@ function App() {
         { /* Info */ }
         <section className="banner" style={{ 'background': '#0c164f', 'position': 'relative' }} id="t-minus">
           <Container style={{ 'minHeight': '65vh' }}>
-            <Animation modelSrc={'./realistic_spaceship.glb'} camera={ isMobile ? [500, 0, -500] : [300, 0, -300]} position={'absolute'} modelPosition={ isMobile ? [-140, -280, 140] : [70, -40, 70]} />
+            <Animation modelSrc={'./launch.glb'} camera={ isMobile ? [500, 0, -500] : [300, 0, -300]} position={'absolute'} modelPosition={ isMobile ? [-140, -280, 140] : [70, -40, 70]} />
 
             <Row className='h-100'>
               <Col xs={12} md={7} xl={7}>
