@@ -4,7 +4,7 @@ import { OrbitControls, PerspectiveCamera } from '@react-three/drei'
 import {  GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import * as THREE from 'three'
 
-const Model = ({modelSrc, position}) => {
+const Model = ({modelSrc, position, show}) => {
     const model = useLoader( GLTFLoader, modelSrc );
     
     

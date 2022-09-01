@@ -22,16 +22,11 @@ function App() {
   const animationSrc2 = './earth.glb';
   const animationPos2 = [0, 10, 35];
 
-  const [primaryAnimationSrc, setPrimaryAnimationSrc] = useState(animationSrc1);
-  const [primaryAnimationPos, setPrimaryAnimationPos] = useState(animationPos1);
+  const [showFirstAnimation, setShowFirstAnimation] = useState(true);
 
   useEffect(() => {
     const onScroll = () => {
-      let showFirstAnimation = window.scrollY < 2 * document.documentElement.clientHeight;
-      setPrimaryAnimationSrc(showFirstAnimation ? animationSrc1 : animationSrc2)
-
-      if(showFirstAnimation && primaryAnimationPos[2] !== animationPos1[2]) { setPrimaryAnimationPos(animationPos1) }
-      if(!showFirstAnimation && primaryAnimationPos[2] !== animationPos2[2]) { setPrimaryAnimationPos(animationPos2) }
+      setShowFirstAnimation(window.scrollY < 2 * document.documentElement.clientHeight)
     }
 
     window.addEventListener("scroll", onScroll);
@@ -51,7 +46,9 @@ function App() {
         { /* Banner */ }
         <section className="banner" id="home">
           <Container style={{ 'minHeight': '65vh' }}>
-          <Animation modelSrc={primaryAnimationSrc} camera={[80, 60, 60]} position={'fixed'} modelPosition={isMobile ? [0, primaryAnimationPos[1], 0 ] : primaryAnimationPos} />
+
+            <Animation modelSrc={animationSrc1} camera={showFirstAnimation ? [80, 60, 60] : []} position={'fixed'} modelPosition={isMobile ? [0, animationPos1[1], 0 ] : animationPos1} />
+            <Animation modelSrc={animationSrc2} camera={showFirstAnimation ? [] : [80, 60, 60]} position={'fixed'} modelPosition={isMobile ? [0, animationPos2[1], 0 ] : animationPos2} />
 
             <Row>
 
