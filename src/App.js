@@ -131,6 +131,7 @@ function App() {
                 <div className={"animate__animated animate__fadeInUp"}>
                   <h1>Reach Out</h1><br />
                   <h3 style={{ "color": "darkgrey" }}>If you are interested, please reach out. Also, thank you for visiting my website.</h3>
+                  <h3 style={{ "color": "darkgrey" }}>Email: williamechols@tamu.edu</h3>
                 </div>
               </Col>
 
