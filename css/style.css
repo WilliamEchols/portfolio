@@ -1,0 +1,602 @@
+:root {
+    /* Atari-inspired color scheme */
+    --terminal-text: #e5d3b3;    /* Warm beige */
+    --terminal-accent: #d5573b;  /* Atari red */
+    --terminal-bg: #2b2b2b;      /* Dark gray */
+    --terminal-header: #3a3a3a;  /* Slightly lighter gray for header */
+    --terminal-glow: 0 0 10px rgba(229, 211, 179, 0.2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+body {
+    background-color: #0f111a;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.crt {
+    position: relative;
+    background: #272736;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.7);
+    width: 100%;
+    max-width: 900px;
+    margin: 10px;
+}
+
+.terminal {
+    background: var(--terminal-bg);
+    width: 100%;
+    height: 90vh;
+    max-height: 600px;
+    border: 2px solid var(--terminal-accent);
+    position: relative;
+}
+
+.terminal-header {
+    background: var(--terminal-header);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.control-btn {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    padding: 0;
+}
+
+.control-btn:hover {
+    transform: scale(1.1);
+}
+
+.url-bar {
+    color: var(--terminal-text);
+    padding: 4px 8px;
+    border: 1px solid var(--terminal-accent);
+    background: rgba(0, 0, 0, 0.2);
+    font-size: 0.9em;
+}
+
+.screen {
+    padding: 20px;
+    height: calc(100% - 85px); /* Adjusted for new header + url bar */
+    overflow: hidden; /* Prevent double scrollbars */
+}
+
+.browser-window {
+    border: none;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.browser-header {
+    display: none;
+}
+
+.browser-controls {
+    color: var(--terminal-text);
+    margin-bottom: 5px;
+    display: flex;
+    gap: 10px;
+}
+
+.theme-switch {
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.theme-switch:hover {
+    color: var(--terminal-accent);
+}
+
+.browser-content {
+    padding: 10px;
+    min-height: unset; /* Remove the old min-height */
+    color: var(--terminal-text);
+}
+
+.main-nav {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.nav-link {
+    color: var(--terminal-text);
+    text-decoration: none;
+    margin: 5px;
+    padding: 5px 10px;
+    border: 1px solid var(--terminal-accent);
+    display: inline-block;
+}
+
+.nav-link:hover {
+    background: var(--terminal-accent);
+    color: var(--terminal-bg);
+}
+
+/* CRT effect */
+.crt::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%,
+        rgba(0, 0, 0, 0.15) 50%
+    );
+    background-size: 100% 3px;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.7;
+}
+
+/* Scan line effect */
+.crt::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(18, 16, 16, 0.1);
+    opacity: 0;
+    z-index: 2;
+    pointer-events: none;
+    animation: flicker 0.3s infinite;
+    opacity: 0.5;
+}
+
+/* Add responsive styles */
+@media (max-width: 600px) {
+    .terminal {
+        height: 85vh;
+    }
+
+    .terminal-header {
+        padding: 5px;
+    }
+
+    .screen {
+        padding: 10px;
+    }
+
+    .browser-content {
+        padding: 5px;
+    }
+
+    .main-nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    .nav-link {
+        margin: 2px;
+        padding: 3px 6px;
+    }
+
+    .ascii-art {
+        font-size: 0.7em;
+    }
+}
+
+/* Optional: Style the scrollbar for webkit browsers */
+.browser-window::-webkit-scrollbar {
+    width: 8px;
+}
+
+.browser-window::-webkit-scrollbar-track {
+    background: var(--terminal-bg);
+}
+
+.browser-window::-webkit-scrollbar-thumb {
+    background: var(--terminal-accent);
+    border-radius: 4px;
+}
+
+.browser-window::-webkit-scrollbar-thumb:hover {
+    background: var(--terminal-text);
+}
+
+.mode-switch {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.mode-btn {
+    background: transparent;
+    border: 1px solid var(--terminal-accent);
+    color: var(--terminal-text);
+    padding: 8px 16px;
+    font-family: 'Courier New', monospace;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.mode-btn:hover {
+    background: var(--terminal-accent);
+    color: var(--terminal-bg);
+}
+
+.project-links a {
+    color: var(--terminal-text);
+    text-decoration: none;
+    margin-right: 15px;
+}
+
+.project-links a:hover {
+    color: var(--terminal-accent);
+}
+
+/* Improve focus states for keyboard navigation */
+.nav-link:focus,
+.mode-btn:focus {
+    outline: 2px solid var(--terminal-accent);
+    outline-offset: 2px;
+}
+
+/* Ensure sufficient color contrast */
+:root {
+    --terminal-text: #e5d3b3;    /* Ensure this passes WCAG contrast requirements */
+}
+
+/* Add these styles for links */
+a {
+    color: var(--terminal-text);
+    text-decoration: none;
+    transition: all 0.2s;
+    padding: 2px 4px;
+}
+
+a:hover {
+    color: var(--terminal-bg);
+    background: var(--terminal-accent);
+}
+
+/* Update existing project links style */
+.project-links a {
+    border: 1px solid var(--terminal-accent);
+    padding: 4px 8px;
+    margin-right: 15px;
+}
+
+.project-links a:hover {
+    border-color: transparent;
+}
+
+/* Style contact links */
+.contact-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-grid p {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.contact-label {
+    color: var(--terminal-accent);
+    min-width: 80px;
+}
+
+.contact-grid a {
+    color: var(--terminal-text);
+    text-decoration: none;
+    padding: 2px 5px;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+}
+
+.contact-grid a:hover {
+    color: var(--terminal-bg);
+    background: var(--terminal-accent);
+    border-color: var(--terminal-accent);
+}
+
+@media print {
+    .crt::before, .crt::after,
+    .mode-switch, .theme-switch,
+    .browser-controls {
+        display: none !important;
+    }
+    
+    body {
+        background: white;
+        color: black;
+    }
+    
+    .terminal {
+        border: none;
+    }
+    
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+}
+
+/* Update controls group styling */
+.controls-group {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+/* Blog styles */
+.blog-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.blog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--terminal-accent);
+    padding-bottom: 10px;
+}
+
+.blog-date {
+    color: var(--terminal-accent);
+}
+
+.blog-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-desc {
+    margin: 15px 0;
+    line-height: 1.5;
+    flex: 1;
+}
+
+.blog-links {
+    margin-top: auto;
+    text-align: right;
+}
+
+.blog-links a {
+    border: 1px solid var(--terminal-accent);
+    padding: 5px 10px;
+    transition: all 0.2s;
+}
+
+.blog-links a:hover {
+    background: var(--terminal-accent);
+    color: var(--terminal-bg);
+    border-color: transparent;
+}
+
+/* Update responsive styles for blog */
+@media (max-width: 600px) {
+    .blog-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .blog-entry {
+        padding: 15px;
+    }
+
+    .blog-links {
+        text-align: left;
+    }
+}
+
+/* Add fullscreen styles */
+.fullscreen-btn {
+    background: var(--terminal-text);
+    box-shadow: 0 0 10px rgba(213, 87, 59, 0.2);
+    cursor: pointer;
+    transition: color 0.2s;
+    user-select: none;
+}
+
+.close-btn {
+    background: var(--terminal-accent);
+    box-shadow: 0 0 10px rgba(213, 87, 59, 0.2);
+}
+
+/* Fullscreen transition styles */
+.crt {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.terminal {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Loading progress bar */
+.loading-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 2px;
+    background: var(--terminal-accent);
+    transition: width 0.3s ease;
+}
+
+/* Page transitions */
+.browser-content {
+    transition: opacity 0.3s ease;
+}
+
+/* Update terminal title style */
+.terminal-title {
+    color: var(--terminal-accent);
+    font-weight: bold;
+}
+
+/* Project styles to match blog */
+.project-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--terminal-accent);
+    padding-bottom: 10px;
+}
+
+.project-header h3 {
+    margin: 0;
+}
+
+.project-date {
+    color: var(--terminal-accent);
+    font-size: 0.9em;
+    font-family: 'Courier New', monospace;
+}
+
+.project-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-desc {
+    margin: 15px 0;
+    line-height: 1.5;
+    flex: 1;
+}
+
+.project-links {
+    margin-top: auto;
+    text-align: right;
+}
+
+.project-links a {
+    border: 1px solid var(--terminal-accent);
+    padding: 5px 10px;
+    transition: all 0.2s;
+}
+
+.project-links a:hover {
+    background: var(--terminal-accent);
+    color: var(--terminal-bg);
+    border-color: transparent;
+}
+
+@media (max-width: 600px) {
+    .project-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .project-entry {
+        padding: 15px;
+    }
+
+    .project-links {
+        text-align: left;
+    }
+}
+
+.ascii-art {
+    font-family: monospace;
+    white-space: pre;
+    margin-bottom: 20px;
+    text-align: center;
+    color: var(--terminal-accent);
+    height: 0;  /* Default height of 0 */
+    overflow: hidden;  /* Hide when empty */
+    transition: height 0.3s ease;
+}
+
+/* Only show ascii art on home page */
+.page-home .ascii-art {
+    height: 120px;  /* Adjust this value based on your ASCII art height */
+    overflow: visible;
+}
+
+/* Remove old fullscreen styles and replace with these */
+body.fullscreen-active {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+body.fullscreen-active .crt {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    background: var(--terminal-bg);
+}
+
+body.fullscreen-active .terminal {
+    height: 100vh;
+    max-height: none;
+}
+
+/* Update control buttons */
+.control-btn {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    padding: 0;
+}
+
+.control-btn:hover {
+    transform: scale(1.1);
+}

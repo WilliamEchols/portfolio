@@ -4,77 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>William Echols</title>
-    <link rel="icon" type="image/x-icon" href="profile.jpeg">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/terminal.css">
+    <meta name="description" content="William Echols - Applied Mathematics Student at UC Berkeley">
+    <meta name="keywords" content="Mathematics, Quantitative Finance, Software Development, Berkeley">
+    <meta name="author" content="William Echols">
+    <!--
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    -->
+    <!-- Open Graph tags -->
+    <meta property="og:title" content="William Echols - Applied Mathematics Student">
+    <meta property="og:description" content="Portfolio of William Echols, Applied Mathematics student at UC Berkeley">
+    <!--
+    <meta property="og:image" content="path/to/preview-image.jpg">
+    -->
+    <!-- Twitter Card tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="William Echols - Portfolio">
+    <meta name="twitter:description" content="Applied Mathematics student at UC Berkeley">
 </head>
-<body id="home">
-    <header>
-        <div class="header-content">
-            <nav>
-                <ul>
-                    <a href="#about">About</a>
-                    <a href="#research">Research</a>
-                    <a href="#projects">Projects</a>
-                    <a href="#contact">Contact</a>
-                </ul>
-            </nav>
-            <img src="profile.jpeg" alt="William Echols" class="profile-pic">
-            <h1>William Echols</h1>
-            <p>BA Mathematics, University of California, Berkeley</p>
+<body>
+    <div class="crt">
+        <div class="terminal">
+            <div class="terminal-header">
+                <div class="header-top">
+                    <div class="header-left">
+                        <div class="header-controls">
+                            <div class="control-btn close-btn"></div>
+                            <div class="control-btn fullscreen-btn"></div>
+                        </div>
+                        <div class="terminal-title">PERSONAL TERMINAL v1.0</div>
+                    </div>
+                </div>
+                <div class="url-bar">
+                    http://localhost/home
+                </div>
+            </div>
+            <div class="screen">
+                <div class="browser-window">
+                    <div class="browser-content">
+                        <div id="ascii-art" class="ascii-art">
+                            Loading...
+                        </div>
+                        <div class="content">
+                            <nav class="main-nav" role="navigation" aria-label="Main navigation">
+                                <a href="#home" class="nav-link" aria-label="Home page">[HOME]</a>
+                                <a href="#about" class="nav-link">[ABOUT]</a>
+                                <a href="#projects" class="nav-link">[PROJECTS]</a>
+                                <a href="#contact" class="nav-link">[CONTACT]</a>
+                            </nav>
+                            <main id="main-content">
+                                <!-- Content will be loaded here -->
+                            </main>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </header>
-    
-    
-    <main>
-        <section id="about">
-            <h2>About Me</h2>
-            <p>I am an undergraduate mathematics student at UC Berkeley with an interest in the intersection of mathematics, computation, and economics.</p>
-            
-        </section>
-        
-        <section id="research">
-            <h2>Research Experience</h2>
-            
-            <div class="project-list">
-                <article class="project-item">
-                    <h3><a href="https://people.tamu.edu/~paruiz//UFRT.html" target="_blank">TAMU Fractals Research Team</a></h3>
-                    <p>As an undergraduate researcher in the Texas A&M University Fractals Research Team, I researched and developed methods of computational mathematics using C++ to analyze the Sierpinski gasket.</p>
-                </article>
-            </div>
-            
-        </section>
-        
-        <section id="projects">
-            <h2>Projects</h2>
-            <div class="project-list">
-                <article class="project-item">
-                    <h3><a href="https://github.com/WilliamEchols/dex-arb" target="_blank">Decentralized Cryptocurrency Exchange Arbitrage</a></h3>
-                    <p>Using Golang with concurrency along with elements of Graph Theory, I built a cohesive program that utilizes DEX (Decentralized Exchanges) Websocket APIs to identify and execute profitable artbitrage opportunities.</p>
-                </article>
-                <article class="project-item">
-                    <h3><a href="https://devpost.com/software/ainvest" target="_blank">Goldman Sachs Challenge (3rd place in TAMUHack 2023)</a></h3>
-                    <p>Market analysis using a custom-trained Cohere NLP machine learning pipeline designed to mitigate cusomer risk using automated news API scoring</p>
-                </article>
-                <article class="project-item">
-                    <h3><a href="https://devpost.com/software/friendlylive" target="_blank">Live Streaming for Good (1st place in Datathon 2022)</a></h3>
-                    <p>Friendly live streaming service that uses natural language processing and sentiment analysis to incentivize positive communities-- Winner of <i>Best Use of Microsoft Cloud for Your Community.</i></p>
-                </article>
-                <article class="project-item">
-                    <h3><a href="http://www.numberworld.org/y-cruncher/records/2021_9_9_log2.txt" target="_blank">Natural Logarithm of 2</a></h3>
-                    <p>I operated a high-uptime homelab system using Proxmox virtualization of containerized Linux instances in order to calculate the Natural Log of 2 to 1.5 x 10^12 digits, the highest degree of accuracy ever calculated at the time. </p>
-                </article>
-            </div>
-        </section>
-        
-        <section id="contact">
-            <h2>Contact</h2>
-            <p>Email: <a href="mailto:williamechols@berkeley.com">williamechols@berkeley.com</a></p>
-            <p>LinkedIn: <a href="https://linkedin.com/in/williamdechols" target="_blank">linkedin.com/in/williamdechols</a></p>
-            <p>GitHub: <a href="https://github.com/williamechols" target="_blank">github.com/williamechols</a></p>
-        </section>
-    </main>
-    
-    <footer></footer>
+    </div>
+    <script src="js/terminal.js"></script>
+    <script src="js/content.js"></script>
+    <script src="js/themes.js"></script>
+    <script>
+        // Initialize theme manager after DOM content is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new ThemeManager();
+        });
+    </script>
 </body>
-</html>
+</html> 
