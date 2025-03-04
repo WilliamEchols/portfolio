@@ -4,72 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>William Echols</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/terminal.css">
-    <meta name="description" content="William Echols - Applied Mathematics Student at UC Berkeley">
-    <meta name="keywords" content="Mathematics, Quantitative Finance, Software Development, Berkeley">
-    <meta name="author" content="William Echols">
-    <!--
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    -->
-    <!-- Open Graph tags -->
-    <meta property="og:title" content="William Echols - Applied Mathematics Student">
-    <meta property="og:description" content="Portfolio of William Echols, Applied Mathematics student at UC Berkeley">
-    <!--
-    <meta property="og:image" content="path/to/preview-image.jpg">
-    -->
-    <!-- Twitter Card tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="William Echols - Portfolio">
-    <meta name="twitter:description" content="Applied Mathematics student at UC Berkeley">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <div class="crt">
-        <div class="terminal">
-            <div class="terminal-header">
-                <div class="header-top">
-                    <div class="header-left">
-                        <div class="header-controls">
-                            <div class="control-btn close-btn"></div>
-                            <div class="control-btn fullscreen-btn"></div>
-                        </div>
-                        <div class="terminal-title">PERSONAL TERMINAL v1.0</div>
-                    </div>
-                </div>
-                <div class="url-bar">
-                    http://localhost/home
-                </div>
-            </div>
-            <div class="screen">
-                <div class="browser-window">
-                    <div class="browser-content">
-                        <div id="ascii-art" class="ascii-art">
-                            Loading...
-                        </div>
-                        <div class="content">
-                            <nav class="main-nav" role="navigation" aria-label="Main navigation">
-                                <a href="#home" class="nav-link" aria-label="Home page">[HOME]</a>
-                                <a href="#about" class="nav-link">[ABOUT]</a>
-                                <a href="#projects" class="nav-link">[PROJECTS]</a>
-                                <a href="#contact" class="nav-link">[CONTACT]</a>
-                            </nav>
-                            <main id="main-content">
-                                <!-- Content will be loaded here -->
-                            </main>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <main>
+        <header>
+            <h1>William Echols</h1>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="blog.html">Blog</a>
+            </nav>
+        </header>
+
+        <blockquote>
+            <p></p>
+            <cite></cite>
+        </blockquote>
+
+        <div>
+            <img src="assets/berkeley-675.png" alt="Berkeley" class="header-image">
+            <p>University of California, Berkeley (ordered bayer dither)</p>
         </div>
-    </div>
-    <script src="js/terminal.js"></script>
-    <script src="js/content.js"></script>
-    <script src="js/themes.js"></script>
-    <script>
-        // Initialize theme manager after DOM content is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            new ThemeManager();
-        });
-    </script>
+
+        <section id="about">
+            <h2>About</h2>
+            <p>Studying Mathematics at the University of California, Berkeley.</p>
+            <p>I am interested in math, cs, and linux.</p>
+        </section>
+
+        <section id="work">
+            <h2>Experience</h2>
+            <ul>
+                <li><span class="year">Aug 2023 — May 2024</span>
+                    <a href="https://people.tamu.edu/~paruiz/UFRT.html" target="_blank" rel="noopener noreferrer"><span class="project">TAMU Fractals Research Team</span></a>
+                    <span class="description">Researched Sierpiński gasket using C++</span></li>
+                <li><span class="year">Jan 2023</span>
+                    <a href="https://devpost.com/software/ainvest" target="_blank" rel="noopener noreferrer"><span class="project">TAMUHack 2023</span></a>
+                    <span class="description">Won 3rd place in <i>Goldman Sachs Challenge</i> for sentiment analysis platform</span></li>
+                <li><span class="year">Oct 2022</span>
+                    <a href="https://devpost.com/software/friendlylive" target="_blank" rel="noopener noreferrer"><span class="project">Datathon 2022</span></a>
+                    <span class="description">Won <i>Best Use of Microsoft Cloud</i> for live-streaming NLP web app</span></li>
+                <li><span class="year">Apr 2021 — Sep 2021</span>
+                    <a href="http://www.numberworld.org/y-cruncher/records/2021_9_9_log2.txt" target="_blank" rel="noopener noreferrer"><span class="project">Natural Logarithm of 2</span></a>
+                    <span class="description">Calculated ln2 to 1.5 x 10^12 digits (previous world record)</span></li>
+            </ul>
+        </section>
+
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>williamechols@berkeley.edu</p>
+            <p>github.com/williamechols</p>
+        </section>
+
+        <footer>
+            <div class="size-indicator">
+                <p></p>
+            </div>
+        </footer>
+    </main>
+    <script src="script.js"></script>
 </body>
 </html> 
