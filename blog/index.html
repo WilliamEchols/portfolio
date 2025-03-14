@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>William Echols</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <script>
+        function updateOgUrl() {
+            const ogUrl = document.querySelector('meta[property="og:url"]');
+            if (ogUrl) {
+                ogUrl.setAttribute('content', window.location.href);
+            }
+        }
+        window.addEventListener('hashchange', updateOgUrl);
+        document.addEventListener('DOMContentLoaded', updateOgUrl);
+    </script>
+</head>
+<body>
+    <main>
+        <header>
+            <h1>William Echols</h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/fractals">Fractals</a>
+            </nav>
+        </header>
+
+        <section id="blog">
+            <div id="blog-posts">
+            </div>
+        </section>
+
+        <footer>
+            <div class="size-indicator">
+                <p>This webpage is ~1.2kB in size.</p>
+            </div>
+        </footer>
+    </main>
+    <script src="../script.js"></script>
+    <script src="blog.js"></script>
+</body>
+</html> 

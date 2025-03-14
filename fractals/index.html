@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>William Echols</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <style>
+        /* Additional styles for the fractals page */
+        canvas {
+            display: block;
+            margin: 2rem auto;
+            border: var(--border);
+            image-rendering: -webkit-optimize-contrast; /* Sharper rendering in Chrome */
+            image-rendering: crisp-edges; /* Sharper rendering in Firefox */
+            max-width: 100%; /* Ensure canvas is responsive */
+        }
+        
+        .controls {
+            margin: 1.5rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .control-group {
+            margin-bottom: 1rem;
+        }
+        
+        button, select {
+            font-family: monospace;
+            background: var(--bg);
+            color: var(--text);
+            border: var(--border);
+            padding: 0.3rem 0.6rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        button:hover, select:hover {
+            background: var(--text);
+            color: var(--bg);
+        }
+        
+        .fractal-visualization {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            align-items: flex-start;
+            margin: 2rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            .fractal-visualization {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            canvas {
+                width: 100% !important;
+                height: auto !important;
+                max-width: 400px;
+            }
+            
+            #sierpinski-canvas, #chaos-game-canvas {
+                width: 100% !important;
+                height: auto !important;
+            }
+        }
+        
+        .chaos-game-container {
+            margin: 2rem auto;
+            text-align: center;
+        }
+        
+        .chaos-game-controls {
+            margin: 1rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+        
+        .speed-control {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        #speed-value {
+            font-size: 0.8rem;
+            min-width: 120px;
+            display: inline-block;
+        }
+        
+        #chaos-game-canvas {
+            border: var(--border);
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <header>
+            <h1>William Echols</h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/fractals">Fractals</a>
+            </nav>
+        </header>
+
+        <section id="fractals-research">
+            <h2>Fractal Research</h2>
+            
+            <p>During my time with the <a href="https://people.tamu.edu/~paruiz/UFRT.html" target="_blank" rel="noopener noreferrer" class="highlight">TAMU Fractals Research Team</a> (August 2023 - May 2024), I explored the fascinating world of fractals, with a particular focus on the Sierpiński gasket.</p>
+                        
+            <p>The Sierpiński gasket (also called the Sierpiński triangle) is one of the most famous example of a fractal, which is a type of mathematical object has "self-similarity" at all scales. The Sierpiński gasket is named after Polish mathematician Wacław Sierpiński, and can be generated through several different methods.</p>
+            
+            <p>The most direct method to generate the Sierpiński gasket is through an infinite process of splitting an equilateral triangle into 4 smaller triangles. Since repeating a process infinitely is impossible, we instead approximate the Sierpiński gasket using a finite number of iterations.</p>
+
+            <h3>Build it yourself!</h3>
+
+            <div class="fractal-visualization">
+                <canvas id="sierpinski-canvas" width="400" height="346" style="width: 400px; height: 346px;"></canvas>
+            </div>
+            
+            <div class="controls">
+                <div class="control-group">
+                    <button id="iterate-btn">Add Iteration</button>
+                    <button id="reset-btn">Reset</button>
+                </div>
+            </div>
+            
+            <h3>Research Approach</h3>
+            
+            <p>In our research, we used C++ to implement various algorithms for generating and analyzing the Sierpiński gasket. Using matrices and techniques from linear algebra, we were able to recursively generate approximations of the Sierpiński gasket and analyze its properties as the number of iterations increased.</p>
+
+            <h3>Properties</h3>
+            
+            <p>The Sierpiński gasket exhibits several interesting properties:</p>
+            
+            <ul>
+                <li><span class="highlight">Self-similarity</span>: Each part of the fractal is a scaled replica of the whole. After a couple iterations, you can see that each of the three exterior triangles look like the whole fractal. Then, if you zoom into the sub-triangles of a given triangle, you can see that they look like the whole fractal as well. This process continues forever.</li>
+                <li><span class="highlight">Fractal dimension</span>: The Sierpiński gasket has a "Hausdorff dimension" of approximately 1.585. This means that the fractal is not a 1D line or 2D surface, but something in between.</li>
+                <li><span class="highlight">Infinite perimeter</span>: As the number of iterations increases, the perimeter of the gasket approaches infinity while its area approaches zero.</li>
+            </ul>
+            
+            <div class="math-formula">
+                <p>Hausdorff Dimension = log(3)/log(2) ≈ 1.585</p>
+            </div>
+            
+            <h3>The Chaos Game Method</h3>
+            
+            <p>One of the most surprising ways to generate the Sierpiński gasket is the "chaos game":</p>
+            
+            <ol>
+                <li>Start with three points forming a triangle</li>
+                <li>Pick a random point inside the triangle</li>
+                <li>Randomly select one of the three vertices</li>
+                <li>Move halfway from your current position toward the selected vertex</li>
+                <li>Plot this new point</li>
+                <li>Repeat</li>
+            </ol>
+            
+            <p>This random process creates the Sierpiński pattern. Try it out for yourself!</p>
+            
+            <div class="chaos-game-container">
+                <canvas id="chaos-game-canvas" width="400" height="346" style="width: 400px; height: 346px;"></canvas>
+                <div class="chaos-game-controls">
+                    <button id="start-chaos-game">Start Chaos Game</button>
+                    <button id="reset-chaos-game">Reset</button>
+                    <div class="speed-control">
+                        <label for="speed-slider">Speed:</label>
+                        <input type="range" id="speed-slider" min="1" max="100" value="10">
+                        <span id="speed-value">10 points per frame</span>
+                    </div>
+                </div>
+            </div>
+
+            <p>Seemingly out of nowhere, we can consistently generate the Sierpiński gasket using only a random number generator and a few simple rules.</p>
+            
+            <h3>Applications and Connections</h3>
+            
+            <p>The Sierpiński gasket has applications in:</p>
+            
+            <ul>
+                <li>Antenna design</li>
+                <li>Computer graphics and procedural generation</li>
+                <li>Network topology optimization</li>
+                <li>Natural patterns (such as some leaf structures)</li>
+                <li>Making cool shapes</li>
+            </ul>
+        </section>
+
+        <h3>Conclusion</h3>
+
+        <p>I hope this page helps you to appreciate this interesting structure. One of the most appealing aspects of the Sierpiński gasket to me is a theme that reoccurs throughout mathematics: simple rules (such as in the game chaos or the idea of splitting an equaliteral triangle) often lead to fascinating, unexpected, and interconnected results.</p>
+
+        <footer>
+            <div class="size-indicator">
+                <p>This webpage is ~8.6kB in size.</p>
+            </div>
+        </footer>
+    </main>
+    <script src="fractals.js"></script>
+</body>
+</html> 
