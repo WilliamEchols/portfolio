@@ -10,7 +10,7 @@ RED='\033[0;31m'
 NC='\033[0m' # No Color
 
 # Files to include in calculation
-FILES=("index.html" "blog/index.html" "fractals/index.html")
+FILES=("index.html" "blog/index.html" "fractals/index.html" "log2/index.html")
 
 total_bytes=0
 

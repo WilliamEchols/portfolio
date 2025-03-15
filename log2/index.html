@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>William Echols</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+<body>
+    <main>
+        <header>
+            <h1>William Echols</h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/fractals">Fractals</a>
+                <a href="/log2">Log(2)</a>
+            </nav>
+        </header>
+
+        <section id="ln2">
+            <h2>Natural Logarithm of 2</h2>
+            
+            <p>The natural log of 2, sometimes written as ln(2) or log(2), is an important constant in fields such as mathematics and computer science. It starts with the digits 0.69314 and continues infinitely.</p>
+
+            <p>log(2) is a transcendental number, which means that it is not the root of any polynomial with rational coefficients. For our purposes, this means that it cannot be perfectly represented using a finite number of digits and its digits do not repeat. As a result, calculating its digits requires a lot of computational power. However, there are several known methods to calculate log(2) to arbitrary precision.</p>
+
+            <h3>Putting theory into practice</h3>
+
+            <p>Using <a href="http://www.numberworld.org/y-cruncher/" target="_blank" rel="noopener noreferrer" class="highlight">y-cruncher</a>, I calculated 1.5 trillion digits of log(2) with this server:</p>
+
+            <div class="image-container">
+                <img src="../assets/server.png" alt="server" class="smaller-width-image">
+            </div>
+
+            </div>
+
+            <table class="table-right">
+                <tr>
+                    <th>Processor</th>
+                    <td>2x Intel(R) Xeon(R) CPU E5-2690 v3 @ 2.60GHz</td>
+                </tr>
+                <tr>
+                    <th>Topology</th>
+                    <td>48 threads / 24 scores / 2 sockets</td>
+                </tr>
+                <tr>
+                    <th>Usable Memory</th>
+                    <td>252 GiB</td>
+                </tr>
+                <tr>
+                    <th>Usable Storage</th>
+                    <td>~200 TiB</td>
+                </tr>
+            </table>
+
+            <p>In order to easily structure and partition the server, I used Proxmox (a hypervisor: a program that allows you to manage virtual machines) to run an Ubuntu container allocated with the full server's resources. In order to meet Numberworld's standards for record submission, I ran the calculation twice:</p>
+            <ol>
+                <li>The first calculation used the <i>Primary Machin-like Formula (3 terms)</i> algorithm provided by y-cruncher.</li>
+                <li>The second calculation used the <i>Secondary Machin-like Formula (4 terms)</i> algorithm (also provided by y-cruncher) for verification.</li>
+            </ol>
+
+            <p>The results from these calculations matched perfectly, indicating that the computation was successful. Here are some interesting stats from these computations:</p>
+
+            <table>
+                <tr>
+                    <th>Algorithm</th>
+                    <th>Logical Disk Read</th>
+                    <th>Logical Disk Written</th>
+                    <th>Computation Time</th>
+                    <th>Uptime Percent</th>
+                </tr>
+                <tr>
+                    <td>Primary Machin-like Formula</td>
+                    <td>737 TiB</td>
+                    <td>647 TiB</td>
+                    <td>96.4 days</td>
+                    <td>97.4%</td>
+                </tr>
+                <tr>
+                    <td>Secondary Machin-like Formula</td>
+                    <td>823 TiB</td>
+                    <td>728 TiB</td>
+                    <td>53.6 days</td>
+                    <td>87.0%</td>
+                </tr>
+            </table>
+
+            <p>Over the course of the calculations, nearly 1.5 PiB (~1.5 million gigabytes) of data was read and written to the hard drives, causing many of the already-used disks to fail. Thankfully, I had expected some drive failures so I had partitioned the disks with RAID (redundancy to prevent data loss) before starting the calculations.</p>
+
+            <h3>The results</h3>
+
+            <p>Here are the last digits I computed (numbered 1,499,999,999,900 to 1,500,000,000,000), broken into groups of 10 for clarity:</p>
+
+            <div class="image-container">
+                <code class="highlight" style="white-space: pre-line; padding: 1rem;">5455756881 7640150407 6681972149 9106229418 4374409281
+1670491330 6214376057 5948324637 0570636787 5000462651
+                </code>
+            </div>
+
+            <p>Both full logs are available at the Numberworld website: <a href="http://www.numberworld.org/y-cruncher/records/2021_7_9_log2.txt" target="_blank" rel="noopener noreferrer" class="highlight">Computation logs</a> and <a href="http://www.numberworld.org/y-cruncher/records/2021_9_9_log2.txt" target="_blank" rel="noopener noreferrer" class="highlight">Verification logs</a>.</p>
+          
+            <h3>Aftermath</h3>
+
+            <p>This computation held the record for the most digits of log(2) ever calculated, starting from September 9, 2021 and lasting until February 12, 2024 (for a total of 886 days), when <a href="http://www.numberworld.org/y-cruncher/" target="_blank" rel="noopener noreferrer" class="highlight">Jordan Ranous</a> successfully calculated 3 trillion digits of log(2) in just 90 hours! As of the time of this writing, his record still stands.</p>
+            
+        <footer>
+            <div class="size-indicator">
+                <p>This webpage is ~5.7kB in size.</p>
+            </div>
+        </footer>
+    </main>
+    <script src="../script.js"></script>
+</body>
+</html> 

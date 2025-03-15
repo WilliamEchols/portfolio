@@ -53,6 +53,13 @@ h2 {
   margin-bottom: 1.2rem;
 }
 
+h3 {
+  font-size: 1.2rem;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
 p {
   margin-bottom: 1rem;
 }
@@ -125,6 +132,7 @@ li:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 1rem;
 }
 
 .smaller-width-image {
@@ -219,6 +227,10 @@ footer {
   h2 {
     font-size: 1.5rem;
   }
+  
+  h3 {
+    font-size: 1.1rem;
+  }
 }
 
 .blog-post-preview {
@@ -309,4 +321,34 @@ footer {
   font-weight: bold;
   color: var(--text);
   text-decoration: none;
+}
+
+table {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-collapse: collapse;
+  width: 100%;
+  border: var(--border);
+}
+
+table th {
+  font-weight: 700;
+  text-align: left;
+  padding: 0.5rem;
+}
+
+table td {
+  padding: 0.5rem;
+}
+
+table tr:nth-child(even) {
+  background-color: #f0f0f0;
+}
+
+table tr:hover {
+  background-color: #e0e0e0;
+}
+
+.table-right td {
+  text-align: right;
 }
