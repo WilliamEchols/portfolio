@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>William Echols</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <style>
+        /* Additional styles for the brainf page */
+        #interpreter-container {
+            margin: 2rem 0;
+            padding: 1rem;
+            border: var(--border);
+        }
+
+        .code-editor {
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            position: relative;
+        }
+
+        .editor-container {
+            position: relative;
+            height: 150px;
+            border: var(--border);
+            overflow: hidden;
+        }
+
+        #code-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 0.5rem;
+            font-family: monospace;
+            font-size: 14px;
+            line-height: 1.4;
+            tab-size: 4;
+            color: transparent;
+            caret-color: var(--text);
+            background: transparent;
+            resize: vertical;
+            border: none;
+            outline: none;
+            white-space: pre;
+            overflow: auto;
+            z-index: 2;
+        }
+
+        #code-display {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 0.5rem;
+            font-family: monospace;
+            font-size: 14px;
+            line-height: 1.4;
+            white-space: pre;
+            overflow: auto;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Syntax highlighting */
+        .token {
+            transition: all 0.2s;
+        }
+        .token.pointer { color: #2563eb; } /* > < */
+        .token.memory { color: #059669; }  /* + - */
+        .token.io { color: #7c3aed; }      /* . , */
+        .token.loop { color: #dc2626; }    /* [ ] */
+        .token.error { 
+            color: #dc2626;
+            text-decoration: wavy underline;
+        }
+        .token.current {
+            background: var(--text);
+            color: var(--bg) !important;
+            padding: 2px 0;
+        }
+        .token.comment {
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Program state display */
+        .program-state {
+            display: flex;
+            gap: 1rem;
+            padding: 0.5rem;
+            border: var(--border);
+            margin-bottom: 1rem;
+            font-family: monospace;
+            flex-wrap: wrap;
+        }
+        .program-state > div {
+            display: flex;
+            gap: 0.5rem;
+            min-width: 150px;
+        }
+        .program-state label {
+            color: #666;
+        }
+
+        /* Controls improvements */
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .speed-control {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        button {
+            padding: 0.5rem 1rem;
+            border: var(--border);
+            background: var(--bg);
+            cursor: pointer;
+            font-family: monospace;
+            transition: all 0.2s;
+            min-width: 80px;
+        }
+
+        button:hover {
+            background: var(--text);
+            color: var(--bg);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        button.active {
+            background: var(--text);
+            color: var(--bg);
+        }
+
+        #tape-container {
+            position: relative;
+            overflow: hidden;
+            padding: 2rem 0;
+            margin: 1rem 0;
+            border: var(--border);
+            height: 120px; /* Fixed height to prevent layout shifts */
+        }
+
+        #tape {
+            display: flex;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%);
+            padding: 0;
+        }
+
+        .cell {
+            min-width: 40px;
+            height: 40px;
+            border: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 2px;
+            font-family: monospace;
+            transition: all 0.2s;
+            background: var(--bg);
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .cell.active {
+            background: var(--text);
+            color: var(--bg);
+            transform: scale(1.1);
+            z-index: 1;
+        }
+
+        #pointer {
+            position: absolute;
+            top: 15px; /* Adjust to align with cells */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid var(--text);
+            z-index: 2;
+        }
+
+        #output-container {
+            margin-top: 1rem;
+            padding: 1rem;
+            border: var(--border);
+        }
+
+        #program-output {
+            min-height: 50px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+
+        .examples {
+            margin-top: 2rem;
+        }
+
+        .example-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        #speed-control {
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <header>
+            <h1>William Echols</h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/fractals">Fractals</a>
+                <a href="/log2">Log(2)</a>
+            </nav>
+        </header>
+
+        <section id="fractals-research">
+            <h2>Brainf*ck interpreter</h2>
+
+            <div id="interpreter-container">
+              <div class="code-editor">
+                  <div class="editor-container">
+                      <textarea id="code-input" placeholder="Enter your Brainf*ck code here... (Use # for comments)" spellcheck="false"></textarea>
+                      <div id="code-display"></div>
+                  </div>
+                  <div class="program-state">
+                      <div class="instruction-count">
+                          <label>Instructions:</label>
+                          <span id="instruction-count">0</span>
+                      </div>
+                      <div class="memory-used">
+                          <label>Memory Used:</label>
+                          <span id="memory-used">0</span>
+                      </div>
+                      <div class="brackets">
+                          <label>Brackets:</label>
+                          <span id="brackets-status">Valid</span>
+                      </div>
+                  </div>
+                  <div class="controls">
+                      <button id="run-btn">Run</button>
+                      <button id="step-btn">Step</button>
+                      <button id="reset-btn">Reset</button>
+                      <div class="speed-control">
+                          <input type="range" id="speed-control" min="1" max="100" value="50">
+                          <label for="speed-control">Speed</label>
+                      </div>
+                  </div>
+              </div>
+              
+              <div class="visualization">
+                  <div id="tape-container">
+                      <div id="tape"></div>
+                      <div id="pointer"></div>
+                  </div>
+                  <div id="output-container">
+                      <h4>Output:</h4>
+                      <pre id="program-output"></pre>
+                  </div>
+              </div>
+          </div>
+  
+          <div class="examples">
+              <h3>Example Programs</h3>
+              <div class="example-buttons">
+                  <button data-program="++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.">Hello World</button>
+                  <button data-program=",[>+<-]>.">Add 1 to Input</button>
+                  <button data-program="++++[>++++[>++++<-]<-]>>+.">Print 'A'</button>
+              </div>
+          </div>
+
+            <h3>About brainf*ck</h3>
+
+            <p>The programming language <i>brainf*ck</i> is an minimalistic programming language which implements the commands of a turing machine. The following eight characters are the only valid syntax elements in the language:</p>
+
+            <table>
+              <tr>
+                <th>Character</th>
+                <th>Instruction</th>
+              </tr>
+              <tr>
+                <td> > </td>
+                <td>Increment the pointer</td>
+              </tr>
+              <tr>
+                <td> < </td>
+                <td>Decrement the pointer</td>
+              </tr>
+              <tr>
+                <td> + </td>
+                <td>Increment the current value</td>
+              </tr>
+              <tr>
+                <td> - </td>
+                <td>Decrement the current value</td>
+              </tr>
+              <tr>
+                <td> . </td>
+                <td>Output the current value</td>
+              </tr>
+              <tr>
+                <td> , </td>
+                <td>Wait for user input and save as the current value</td>
+              </tr>
+              <tr>
+                <td> [ </td>
+                <td> Begin loop </td>
+              </tr>
+              <tr>
+                <td> ] </td>
+                <td> End loop </td>
+              </tr>
+            </table>
+
+        <p>The only control structure is a loop; however, it is quite powerful. If the value at the current pointer is 0 when evaluating [, then the program will skip to the associated ]. This simple rule allows brainf*ck to be turing complete.</p>
+
+        </section>
+
+        <footer>
+            <div class="size-indicator">
+                <p>This webpage is ~TODO kB in size.</p>
+            </div>
+        </footer>
+    </main>
+    <script src="brainf.js"></script>
+</body>
+</html> 
