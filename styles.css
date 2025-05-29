@@ -117,7 +117,7 @@ li {
 }
 
 li:hover {
-  transform: translateX(5px);
+  /* transform: translateX(5px); */ /* Move on list item hover (NOTE) */
   border-left-color: var(--accent);
 }
 
@@ -154,17 +154,21 @@ li:hover {
   display: block;
 }
 
-li a {
+.minimal-link, li a {
   text-decoration: none;
   color: var(--text);
   display: block;
 }
 
-li a:hover {
+.minimal-link, li a:hover {
   color: var(--text);
 }
 
 li a:hover .project {
+  text-decoration: underline;
+}
+
+a:hover.minimal-link {
   text-decoration: underline;
 }
 
