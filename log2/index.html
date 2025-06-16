@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="../styles.css">
     <link rel="icon" href="../favicon.svg" type="image/svg+xml">
     <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <!-- MathJax for LaTeX rendering !-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
 <body>
     <main>
         <header>
@@ -14,7 +18,7 @@
             <nav>
                 <a href="/">Home</a>
                 <a href="/fractals">Fractals</a>
-                <a href="/log2">Log(2)</a>
+                <a href="/number-crunching">Number crunching</a>
             </nav>
         </header>
 
@@ -42,7 +46,7 @@
                 </tr>
                 <tr>
                     <th>Topology</th>
-                    <td>48 threads / 24 scores / 2 sockets</td>
+                    <td>48 threads / 24 cores / 2 sockets</td>
                 </tr>
                 <tr>
                     <th>Usable Memory</th>
@@ -56,8 +60,16 @@
 
             <p>In order to easily structure and partition the server, I used Proxmox (a hypervisor: a program that allows you to manage virtual machines) to run an Ubuntu container allocated with the full server's resources. In order to meet Numberworld's standards for record submission, I ran the calculation twice:</p>
             <ol>
-                <li>The first calculation used the <i>Primary Machin-like Formula (3 terms)</i> algorithm provided by y-cruncher.</li>
-                <li>The second calculation used the <i>Secondary Machin-like Formula (4 terms)</i> algorithm (also provided by y-cruncher) for verification.</li>
+                <li>
+		  The first calculation used the <i>Primary Machin-like Formula (3 terms)</i> algorithm provided by y-cruncher.
+
+		  \[ \log(2) = 18 \mathrm{ArcCoth}(26) - 2 \mathrm{ArcCoth}(4801) + 8 \mathrm{ArcCoth}(8749) \]
+		</li>
+                <li>
+		  The second calculation used the <i>Secondary Machin-like Formula (4 terms)</i> algorithm (also provided by y-cruncher) for verification.
+
+		  \[ \log(2) = 144 \mathrm{ArcCoth}(251) + 54 \mathrm{ArcCoth}(449) - 38 \mathrm{ArcCoth}(4801) + 62 \mathrm{ArcCoth}(8749) \]
+		</li>
             </ol>
 
             <p>The results from these calculations matched perfectly, indicating that the computation was successful. Here are some interesting stats from these computations:</p>
@@ -88,9 +100,9 @@
 
             <p>Over the course of the calculations, nearly 1.5 PiB (~1.5 million gigabytes) of data was read and written to the hard drives, causing many of the already-used disks to fail. Thankfully, I had expected some drive failures so I had partitioned the disks with RAID (redundancy to prevent data loss) before starting the calculations.</p>
 
-            <h3>The results</h3>
+            <h3>Results</h3>
 
-            <p>Here are the last digits I computed (numbered 1,499,999,999,900 to 1,500,000,000,000), broken into groups of 10 for clarity:</p>
+            <p>Here are the last digits I computed (numbered 1,499,999,999,901 to 1,500,000,000,000), broken into groups of 10 for clarity:</p>
 
             <div class="image-container">
                 <code class="highlight" style="white-space: pre-line; padding: 1rem;">5455756881 7640150407 6681972149 9106229418 4374409281
@@ -102,11 +114,11 @@
           
             <h3>Aftermath</h3>
 
-            <p>This computation held the record for the most digits of log(2) ever calculated, starting from September 9, 2021 and lasting until February 12, 2024 (for a total of 886 days), when <a href="http://www.numberworld.org/y-cruncher/" target="_blank" rel="noopener noreferrer" class="highlight">Jordan Ranous</a> successfully calculated 3 trillion digits of log(2) in just 90 hours! As of the time of this writing, his record still stands.</p>
+            <p>This computation held the record for the most digits of log(2) ever calculated, starting from September 9, 2021 and lasting until February 12, 2024 (for a total of 886 days), when <a href="https://www.numberworld.org/y-cruncher/#Records" target="_blank" rel="noopener noreferrer" class="highlight">Jordan Ranous</a> successfully calculated 3 trillion digits of log(2) in just 90 hours! As of the time of this writing, his record still stands.</p>
             
         <footer>
             <div class="size-indicator">
-                <p>This webpage is ~5.7kB in size.</p>
+                <p>This webpage is ~6.2kB in size.</p>
             </div>
         </footer>
     </main>

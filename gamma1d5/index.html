@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>William Echols</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <!-- MathJax for LaTeX rendering !-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <main>
+        <header>
+            <h1>William Echols</h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/fractals">Fractals</a>
+                <a href="/number-crunching">Number crunching</a>
+            </nav>
+        </header>
+
+        <section id="gamma1d5">
+	    <h2>Gamma function with parameter 1/5: \( \Gamma ( \tfrac{1}{5} ) \)</h2>
+            
+	    <p>The Gamma function \( \Gamma (z) \) is essentially a continuous extension of the factorial function. It is defined for real numbers and complex numbers with the following formula:</p>
+
+	    \[ \Gamma (z) = \int_0^\infty t^{z-1} e^{-t} \ \mathrm{d}t, \quad \Re(z) > 0 \]
+
+	    <p>This construction of \( \Gamma (z) \) converges for \( \Re(z) > 0 \), but it extends meromorphically elsewhere.</p>
+
+	    <p>If \( z \) is a positive integer (that is, \( z \in \mathbb{N}^* = \{ 1,2,\ldots \} \)) then \( \Gamma(z) = (z-1)! \)</p>
+
+	    <p>It is currently unknown if \( \Gamma(\tfrac{1}{5}) \) (aka Gamma(1/5)) is irrational or transcendental. If it turned out to be rational, its decimal expansion would eventually fall into a repeating cycle. No such repetition has been found (much less proven), and many believe \( \Gamma(\tfrac{1}{5}) \) to most likely be transcendental.</p>
+
+            <h3>Putting theory into practice</h3>
+
+            <p>Using <a href="http://www.numberworld.org/y-cruncher/" target="_blank" rel="noopener noreferrer" class="highlight">y-cruncher</a>, I calculated 175 billion digits of Gamma(1/5) with this laptop in my dorm (window open for ventilation):</p>
+
+            <div class="image-container">
+                <img src="../assets/laptop.png" alt="laptop in dorm" class="smaller-width-image">
+            </div>
+
+            <table class="table-right">
+                <tr>
+                    <th>Processor</th>
+                    <td>AMD Ryzen 5 7640U</td>
+                </tr>
+                <tr>
+                    <th>Topology</th>
+                    <td>12 threads / 6 cores / 1 socket</td>
+                </tr>
+                <tr>
+                    <th>Usable Memory</th>
+                    <td>62.0 GiB</td>
+                </tr>
+                <tr>
+                    <th>Usable Storage</th>
+                    <td>1.14 TiB</td>
+                </tr>
+            </table>
+
+            <p>I ran the calculation twice to verify my results:</p>
+            <ol>
+                <li>
+		  The first calculation used the <i>Vidunas-Lamprecht (2024)</i> algorithm provided by y-cruncher and was run on a framework laptop running NixOS.
+		  \[ \Gamma( \tfrac{1}{5} ) = \frac{ \sqrt{5} }{ (\sqrt{5} + 5)^{(-1/10)} \cdot \pi^{(-1/5)} \cdot 2^{(-19/50)} \cdot H_1^{(-2/5)} \cdot H_2^{(-1/5)}  } \]
+		  where
+		  \[ H_1 = \int_0^1 \frac{ \mathrm{d}z }{ \sqrt{1-z^5} }, \quad H_2 = \int_0^1 \frac{z \ \mathrm{d}z}{ \sqrt{1-z^5} } \]
+		</li>
+                <li>The second calculation used the <i>Incomplete Gamma Approximation</i> algorithm (also provided by y-cruncher) for verification and was run on a server running Debian in a Proxmox container. This method uses the lower incomplete gamma function (given below) to approximate \( \Gamma(\tfrac{1}{5}) \) to the desired precision.
+
+		\[ \gamma (s,x) = \int_0^x t^{s-1} e^{-t} \ \mathrm{d}t \]
+		</li>
+            </ol>
+
+            <p>The results from these calculations matched perfectly, indicating that the computation was successful. Here are some interesting stats from these computations:</p>
+
+            <table>
+                <tr>
+                    <th>Algorithm</th>
+                    <th>Logical Disk Read</th>
+                    <th>Logical Disk Written</th>
+                    <th>Computation Time</th>
+                    <th>Uptime Percent</th>
+                </tr>
+                <tr>
+                    <td>Vidunas-Lamprecht (2024)</td>
+                    <td>503 TiB</td>
+                    <td>443 TiB</td>
+                    <td>15 days and 22 hours</td>
+                    <td>69.9%</td>
+                </tr>
+                <tr>
+                    <td>Incomplete Gamma Approximation</td>
+                    <td>356 TiB</td>
+                    <td>316 TiB</td>
+                    <td>52 days and 7 hours</td>
+                    <td>93.9%</td>
+                </tr>
+            </table>
+
+	    <p>The relatively low uptime percent for the initial calculation is a result of a 1 week pause in the calculation to make the laptop available for other purposes (midterms).</p>
+
+	    <p>I believe the first method (Vidunas–Lamprecht) is intrinsically more efficient than the Incomplete Gamma Approximation; however, most of the observed performance gap is due to hardware differences. The laptop had an NVMe SSD and a much newer CPU compared to the older hard drives and processor in the Debian server used for verification.</p>
+
+	    <p>Over the two runs combined, more than 1.6 Pebibytes (PiB) of data (about 1.64×10^6 GiB) as read and written to disk. No I/O errors were detected, and all drives remain in full working condition.</p>
+
+            <h3>Results</h3>
+
+            <p>Here are the last digits I computed (numbered 174,999,999,901 to 175,000,000,000), broken into groups of 10 for clarity:</p>
+
+            <div class="image-container">
+                <code class="highlight" style="white-space: pre-line; padding: 1rem;">6180267994 6874068253 4568233834 0586791383 1778803247
+0727912102 7020053472 8225828190 3835497822 1028929467
+                </code>
+            </div>
+
+            <h3>Aftermath</h3>
+
+            <p>When I started this computation, the record for Gamma(1/5) (completed by <a href="https://www.numberworld.org/y-cruncher/#Records" target="_blank" rel="noopener noreferrer" class="highlight">Dmitriy Grigoryev</a>) was 135 billion decimal digits, announced on February 20, 2025; however, a new computation of 220 billion digits was completed on May 26, 2025- 5 days before I completed my 175 billion digit computation.</p>
+
+	    <p>However, this was still a fun personal challenge that provided interesting results on the computation time comparison between a modern laptop and an older server for I/O-bound calculations.</p>
+
+        <footer>
+            <div class="size-indicator">
+                <p>This webpage is ~6.9kB in size.</p>
+            </div>
+        </footer>
+    </main>
+    <script src="../script.js"></script>
+</body>
+</html> 

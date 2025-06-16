@@ -7,6 +7,106 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <style>
+    :root {
+      /*
+      --calculation-color: #E43D3D;
+      --research-color: #2196F3;
+      --hackathon-color: #4CAF50;
+      */
+      --calculation-color: #000;
+      --research-color: #000;
+      --hackathon-color: #000;
+    }
+
+    blockquote {
+      transition: all 0.3s ease;
+    }
+    blockquote:hover {
+      background-color: rgba(0,0,0,0.15);
+    }
+
+    #work {
+      display: flex;
+      flex-direction: column;
+      max-width: 800px;
+      margin: 0 auto;
+      font-family: sans-serif;
+    }
+    #work-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+    #work-header h2 {
+      margin: 0;
+    }
+
+    #work li {
+      transition: all 0.3s ease;
+    }
+    #work li:hover {
+      background-color: rgba(0,0,0,0.15);
+    }
+
+    .filter-group {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .filter-group label {
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      padding: 0.25rem 0.5rem;
+      border: 2px solid #000;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      transition: background-color 0.2s, color 0.2s;
+    }
+    .filter-group label:hover {
+      background-color: rgba(0,0,0,0.15);
+    }
+    .filter-group input[type="checkbox"] {
+      display: none;
+    }
+    .filter-group input[type="checkbox"]:checked + span {
+      font-weight: 800;
+    }
+
+    .filter-group label:has(input[type="checkbox"]:not(:checked)) { border-color: rgba(0,0,0,0.4); }
+
+    li.type-calculation {
+      border-left-color: var(--calculation-color);
+    }
+    .filter-group label:has(input[type="checkbox"][value="calculation"]:checked) { border-color: var(--calculation-color); }
+
+    li.type-research {
+      border-left-color: var(--research-color);
+    }
+    .filter-group label:has(input[type="checkbox"][value="research"]:checked) { border-color: var(--research-color); }
+
+    li.type-hackathon {
+      border-left-color: var(--hackathon-color);
+    }
+    .filter-group label:has(input[type="checkbox"][value="hackathon"]:checked) { border-color: var(--hackathon-color); }
+
+    /*
+    .hidden {
+      display: none !important;
+    }*/
+
+    li.hidden {
+  max-height: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  opacity: 0;
+}
+
+  </style>
 </head>
 <body>
     <main>
@@ -15,7 +115,7 @@
             <nav>
                 <a href="/">Home</a>
                 <a href="/fractals">Fractals</a>
-                <a href="/log2">Log(2)</a>
+                <a href="/number-crunching">Number crunching</a>
             </nav>
         </header>
 
@@ -36,39 +136,113 @@
         </section>
 
         <section id="work">
+            <div id="work-header">
             <h2>Experience</h2>
-            <ul>
-                <li><span class="year">May 2025 — July 2025</span>
-                    <a href=""><span class="project">NSF REU at the University of Missouri</span></a>
-                    <span class="description">Undergraduate Research on Prescriptive Analytics for AI-enabled Operations Engineering</span></li>
-                <li><span class="year">Aug 2023 — May 2024</span>
-                    <a href="/fractals"><span class="project">TAMU Fractals Research Team</span></a>
-                    <span class="description">Researched Sierpiński gasket using C++</span></li>
-                <li><span class="year">Jan 2023</span>
-                    <a href="https://devpost.com/software/ainvest" target="_blank" rel="noopener noreferrer"><span class="project">TAMUHack 2023</span></a>
-                    <span class="description">Won 3rd place in <i>Goldman Sachs Challenge</i> for sentiment analysis platform</span></li>
-                <li><span class="year">Oct 2022</span>
-                    <a href="https://devpost.com/software/friendlylive" target="_blank" rel="noopener noreferrer"><span class="project">Datathon 2022</span></a>
-                    <span class="description">Won <i>Best Use of Microsoft Cloud</i> for live-streaming NLP web app</span></li>
-                <li><span class="year">Apr 2021 — Sep 2021</span>
-                    <a href="/log2"><span class="project">Natural Logarithm of 2</span></a>
-                    <span class="description">Calculated ln2 to 1.5 x 10^12 digits (previous world record)</span></li>
-            </ul>
+      <div class="filter-group">
+        <!-- Each checkbox has a data-filter value matching li[data-type] -->
+        <label>
+          <input type="checkbox" class="filter-checkbox" value="calculation" checked />
+          <span>Calculation</span>
+        </label>
+        <label>
+          <input type="checkbox" class="filter-checkbox" value="research" checked />
+          <span>Research</span>
+        </label>
+        <label>
+          <input type="checkbox" class="filter-checkbox" value="hackathon" checked />
+          <span>Hackathon</span>
+        </label>
+      </div>
+	    </div>
+ 
+          <ul>
+      <li data-type="research" class="type-research">
+        <span class="year">May 2025 — July 2025</span>
+        <a href="/reu"><span class="project">NSF REU at the University of Missouri</span></a>
+        <span class="description">
+          Undergraduate Research on Prescriptive Analytics for AI-enabled Operations Engineering
+        </span>
+      </li>
+      <li data-type="research" class="type-research">
+        <span class="year">Aug 2023 — May 2024</span>
+        <a href="/fractals"><span class="project">TAMU Fractals Research Team</span></a>
+        <span class="description">
+          Researched Sierpiński gasket using C++
+        </span>
+      </li>
+      <li data-type="hackathon" class="type-hackathon">
+        <span class="year">Jan 2023</span>
+        <a href="https://devpost.com/software/ainvest" target="_blank" rel="noopener noreferrer">
+          <span class="project">TAMUHack 2023</span>
+        </a>
+        <span class="description">
+          Won 3rd place in <i>Goldman Sachs Challenge</i> for sentiment analysis platform
+        </span>
+      </li>
+      <li data-type="hackathon" class="type-hackathon">
+        <span class="year">Oct 2022</span>
+        <a href="https://devpost.com/software/friendlylive" target="_blank" rel="noopener noreferrer">
+          <span class="project">Datathon 2022</span>
+        </a>
+        <span class="description">
+          Won <i>Best Use of Microsoft Cloud</i> for live-streaming NLP web app
+        </span>
+      </li>
+      <li data-type="calculation" class="type-calculation">
+        <span class="year">Apr 2021 — Sep 2021</span>
+        <a href="/log2"><span class="project">Natural Logarithm of 2</span></a>
+        <span class="description">
+          Calculated log(2) to 1.5 × 10^12 digits (previous record)
+        </span>
+      </li>
+    </ul>
+
         </section>
 
         <section id="contact">
             <h2>Contact</h2>
             <a class="minimal-link" href="mailto:williamechols@berkeley.edu">williamechols@berkeley.edu</a>
-	    <br>
+	    <br><br>
             <a class="minimal-link" target="_blank" rel="noopener noreferrer" href="https://github.com/williamechols">github.com/williamechols</a>
         </section>
 
         <footer>
             <div class="size-indicator">
-                <p>This webpage is ~2.9kB in size.</p>
+                <p>This webpage is ~7.5kB in size.</p>
             </div>
         </footer>
     </main>
     <script src="script.js"></script>
+    <script>
+    // Grab all checkboxes and all list items
+    const checkboxes = document.querySelectorAll('.filter-checkbox');
+    const listItems = document.querySelectorAll('#work ul li');
+
+    function applyFilters() {
+      // Build a Set of all currently checked types
+      const checkedTypes = new Set(
+        Array.from(checkboxes)
+          .filter((cb) => cb.checked)
+          .map((cb) => cb.value)
+      );
+      // Show/hide each <li> based on its data-type
+      listItems.forEach((li) => {
+        const type = li.getAttribute('data-type');
+        if (checkedTypes.has(type)) {
+          li.classList.remove('hidden');
+        } else {
+          li.classList.add('hidden');
+        }
+      });
+    }
+
+    // Attach change listener to each checkbox
+    checkboxes.forEach((cb) => {
+      cb.addEventListener('change', applyFilters);
+    });
+
+    // Initial filter pass (in case you want all checked by default)
+    applyFilters();
+    </script>
 </body>
 </html> 

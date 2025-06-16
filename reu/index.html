@@ -7,16 +7,9 @@
     <link rel="stylesheet" href="../styles.css">
     <link rel="icon" href="../favicon.svg" type="image/svg+xml">
     <link rel="icon" href="../favicon.ico" type="image/x-icon">
-    <script>
-        function updateOgUrl() {
-            const ogUrl = document.querySelector('meta[property="og:url"]');
-            if (ogUrl) {
-                ogUrl.setAttribute('content', window.location.href);
-            }
-        }
-        window.addEventListener('hashchange', updateOgUrl);
-        document.addEventListener('DOMContentLoaded', updateOgUrl);
-    </script>
+    <!-- MathJax for LaTeX rendering !-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
     <main>
@@ -29,18 +22,23 @@
             </nav>
         </header>
 
-        <section id="blog">
-            <div id="blog-posts">
+        <section id="reu">
+            <h2>NSF REU (Summer 2025)</h2>
+
+            <div class="image-container">
+                <img src="../assets/mizzou-reu.png" alt="server" class="smaller-width-image">
             </div>
-        </section>
+	    <p><i>Undergraduate Research on Prescriptive Analytics for AI-enabled Operations Engineering</i> students in Summer 2025</p>
+
+            <p>Currently in progress!</p>
+ 	</section>
 
         <footer>
             <div class="size-indicator">
-                <p>This webpage is ~1.2kB in size.</p>
+                <p>This webpage is ~1.2 kB in size.</p>
             </div>
         </footer>
     </main>
     <script src="../script.js"></script>
-    <script src="blog.js"></script>
 </body>
 </html> 

@@ -17,6 +17,10 @@ html {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+/* monospace font on everything except MathJax */
+*:not(.MathJax *) {
   font-family: monospace;
 }
 
@@ -100,8 +104,7 @@ nav a {
 }
 
 nav a:hover {
-  background: var(--accent);
-  color: var(--bg);
+  background: rgba(0,0,0,0.15);
 }
 
 ul {
@@ -114,11 +117,6 @@ li {
   border-left: var(--border);
   padding-left: 1rem;
   transition: transform 0.2s, border-left-color 0.2s;
-}
-
-li:hover {
-  /* transform: translateX(5px); */ /* Move on list item hover (NOTE) */
-  border-left-color: var(--accent);
 }
 
 .full-width-image {
@@ -157,7 +155,6 @@ li:hover {
 .minimal-link, li a {
   text-decoration: none;
   color: var(--text);
-  display: block;
 }
 
 .minimal-link, li a:hover {
@@ -320,7 +317,6 @@ footer {
 }
 
 .highlight {
-  background-color: #f0f0f0;
   padding: 0.2rem;
   font-weight: bold;
   color: var(--text);
