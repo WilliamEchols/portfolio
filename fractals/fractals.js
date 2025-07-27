@@ -397,7 +397,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Function to update the points display
         function updatePointsDisplay() {
             // Display points plotted and max points
-            chaosCtx.fillStyle = '#f9f9f9';
+            chaosCtx.fillStyle = '#fff';
             chaosCtx.fillRect(0, 0, 200, 30);
             chaosCtx.fillStyle = '#000';
             chaosCtx.font = '12px monospace';

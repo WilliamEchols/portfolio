@@ -8,50 +8,89 @@
     <link rel="icon" href="../favicon.svg" type="image/svg+xml">
     <link rel="icon" href="../favicon.ico" type="image/x-icon">
     <style>
-        /* Additional styles for the fractals page */
+        /* Fractal canvas styles */
         canvas {
             display: block;
-            margin: 2rem auto;
+            margin: calc(var(--spacing-unit) * 2) auto;
             border: var(--border);
-            image-rendering: -webkit-optimize-contrast; /* Sharper rendering in Chrome */
-            image-rendering: crisp-edges; /* Sharper rendering in Firefox */
-            max-width: 100%; /* Ensure canvas is responsive */
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            max-width: 100%;
+            border-radius: 4px;
+            background: white;
         }
         
+        /* Control layouts */
         .controls {
-            margin: 1.5rem 0;
             display: flex;
             flex-wrap: wrap;
-            gap: 1rem;
+            gap: var(--spacing-unit);
+            justify-content: center;
         }
         
         .control-group {
-            margin-bottom: 1rem;
+            display: flex;
+            gap: calc(var(--spacing-unit) * 0.75);
         }
         
+        /* Interactive elements */
         button, select {
-            font-family: monospace;
-            background: var(--bg);
-            color: var(--text);
-            border: var(--border);
-            padding: 0.3rem 0.6rem;
-            cursor: pointer;
+            padding: calc(var(--spacing-unit) * 0.4) calc(var(--spacing-unit) * 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
             font-size: 0.9rem;
+            background: white;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
         }
         
         button:hover, select:hover {
-            background: rgba(0,0,0,0.15);
+            background: var(--hover-bg);
         }
         
+        /* Fractal visualization layout */
         .fractal-visualization {
             display: flex;
             flex-wrap: wrap;
-            gap: 2rem;
+            gap: calc(var(--spacing-unit) * 2);
             justify-content: center;
             align-items: flex-start;
-            margin: 2rem 0;
         }
         
+        /* Chaos game specific styles */
+        .chaos-game-container {
+            margin: calc(var(--spacing-unit) * 2) auto;
+            text-align: center;
+        }
+        
+        .chaos-game-controls {
+            margin: var(--spacing-unit) 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-unit);
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .speed-control {
+            display: flex;
+            align-items: center;
+            gap: calc(var(--spacing-unit) * 0.5);
+        }
+        
+        #speed-value {
+            font-size: 0.9rem;
+            min-width: 120px;
+            color: rgba(0, 0, 0, 0.7);
+        }
+        
+        input[type="range"] {
+            accent-color: var(--accent);
+        }
+        
+        /* Responsive adjustments */
         @media (max-width: 768px) {
             .fractal-visualization {
                 flex-direction: column;
@@ -64,40 +103,15 @@
                 max-width: 400px;
             }
             
-            #sierpinski-canvas, #chaos-game-canvas {
-                width: 100% !important;
-                height: auto !important;
+            .chaos-game-controls {
+                flex-direction: column;
+                gap: calc(var(--spacing-unit) * 0.75);
             }
-        }
-        
-        .chaos-game-container {
-            margin: 2rem auto;
-            text-align: center;
-        }
-        
-        .chaos-game-controls {
-            margin: 1rem 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            justify-content: center;
-        }
-        
-        .speed-control {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        #speed-value {
-            font-size: 0.8rem;
-            min-width: 120px;
-            display: inline-block;
-        }
-        
-        #chaos-game-canvas {
-            border: var(--border);
-            background-color: #f9f9f9;
+            
+            .speed-control {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -108,7 +122,7 @@
             <nav>
                 <a href="/">Home</a>
                 <a href="/fractals">Fractals</a>
-                <a href="/number-crunching">Number crunching</a>
+                <a href="/number-crunching">Number Crunching</a>
             </nav>
         </header>
 
@@ -146,12 +160,9 @@
                 <li><span class="highlight">Self-similarity</span>: Each part of the fractal is a scaled replica of the whole. After a couple iterations, you can see that each of the three exterior triangles look like the whole fractal. Then, if you zoom into the sub-triangles of a given triangle, you can see that they look like the whole fractal as well. This process continues forever.</li>
                 <li><span class="highlight">Fractal dimension</span>: The Sierpiński gasket has a "Hausdorff dimension" of approximately 1.585. This means that the fractal is not a 1D line or 2D surface, but something in between.</li>
                 <li><span class="highlight">Infinite perimeter</span>: As the number of iterations increases, the perimeter of the gasket approaches infinity while its area approaches zero.</li>
+                <li><span class="highlight">Hausdorff Dimension</span> = log(3)/log(2) ≈ 1.585</li>
             </ul>
-            
-            <div class="math-formula">
-                <p>Hausdorff Dimension = log(3)/log(2) ≈ 1.585</p>
-            </div>
-            
+
             <h3>The Chaos Game Method</h3>
             
             <p>One of the most surprising ways to generate the Sierpiński gasket is the "chaos game":</p>
@@ -200,9 +211,6 @@
         <p>I hope this page helps you to appreciate this interesting structure. One of the most appealing aspects of the Sierpiński gasket to me is a theme that reoccurs throughout mathematics: simple rules (such as in the game chaos or the idea of splitting an equaliteral triangle) often lead to fascinating, unexpected, and interconnected results.</p>
 
         <footer>
-            <div class="size-indicator">
-                <p>This webpage is ~8.7kB in size.</p>
-            </div>
         </footer>
     </main>
     <script src="fractals.js"></script>
