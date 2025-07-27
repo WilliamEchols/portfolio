@@ -43,6 +43,11 @@ main {
   width: 100%;
 }
 
+#intro {
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
 h1, h2, h3 {
   font-weight: 600;
   letter-spacing: -0.02em;
